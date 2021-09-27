@@ -10,7 +10,7 @@ on:
       - '**'
     paths:
       - 'backend/**'
-      - '.github/workflow/ci-cd-backend.yml'
+      - '.github/workflow/**'
   pull_request:
     branches:
       - master

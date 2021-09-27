@@ -17,10 +17,11 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build:
+  build-and-deploy:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
+    name: Build and Deploy Job
+    
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -38,10 +39,24 @@ jobs:
         working-directory: frontend
         
       - name: Deploy Web App to Azure
+        if: (github.event_name == 'push' && github.ref == 'ref/head/master') || (github.event_name == 'pull_request' && github.event.action != 'closed')
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_SITE_DEPLOYMENT_TOKEN }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: 'upload'
+          id: builddeploy
           skip_app_build: true
           app_location: 'frontend/dist/frontend'
+          
+  close-pull-request:
+    if: github.event_name == 'pull_request' && github.event.action == 'closed'
+    runs-on: ubuntu-latest
+    name: Close Pull Request Job
+    steps:
+      - name: Close Pull Request
+        id: closepullrequest
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_SITE_DEPLOYMENT_TOKEN }}
+          action: 'close'

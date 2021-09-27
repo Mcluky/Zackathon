@@ -8,9 +8,6 @@ on:
   push:
     branches:
       - '**'
-    paths:
-      - 'backend/**'
-      - '.github/workflow/**'
   pull_request:
     branches:
       - master

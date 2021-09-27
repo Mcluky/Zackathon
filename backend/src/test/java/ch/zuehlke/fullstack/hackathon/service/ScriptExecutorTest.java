@@ -1,11 +1,11 @@
-package ch.zuehlke.fullstack.hackathon.controller;
+package ch.zuehlke.fullstack.hackathon.service;
 
 import ch.zuehlke.fullstack.hackathon.model.Move;
 import ch.zuehlke.fullstack.hackathon.model.Surroundings;
 import org.junit.jupiter.api.Test;
 
-import static ch.zuehlke.fullstack.hackathon.model.FieldContent.EMPTY;
-import static ch.zuehlke.fullstack.hackathon.model.FieldContent.FLAG;
+import static ch.zuehlke.fullstack.hackathon.model.FieldType.EMPTY;
+import static ch.zuehlke.fullstack.hackathon.model.FieldType.FLAG;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ScriptExecutorTest {

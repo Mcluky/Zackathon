@@ -1,6 +1,6 @@
 package ch.zuehlke.fullstack.hackathon.model;
 
-public enum FieldContent {
+public enum FieldType {
     EMPTY,
     PLAYER,
     BOARDER,

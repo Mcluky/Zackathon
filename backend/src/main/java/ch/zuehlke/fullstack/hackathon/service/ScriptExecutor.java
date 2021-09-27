@@ -1,4 +1,4 @@
-package ch.zuehlke.fullstack.hackathon.controller;
+package ch.zuehlke.fullstack.hackathon.service;
 
 
 import ch.zuehlke.fullstack.hackathon.model.FieldObjects;

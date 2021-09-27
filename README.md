@@ -31,7 +31,7 @@ private repository.
        ch.zuehlke.fullstack.hackathon.HackathonApplication*
        ![runconfig-springboot.png](doc/runconfig-springboot.png)
 
-You should be able to open the Swagger endpoint documentation at `http://localhost:8080/swagger-ui.html`.
+You should be able to open the Swagger endpoint documentation at `http://localhost/swagger-ui.html`.
 
 ### Start frontend
 

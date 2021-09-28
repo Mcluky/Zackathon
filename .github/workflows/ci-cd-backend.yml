@@ -44,7 +44,7 @@ jobs:
           DOCKERHUB_PWD: ${{secrets.DOCKER_HUB_ACCESS_TOKEN}}
         with:
           arguments:
-            test
+            :backend:test
             jib --image=st4udi/zackathon-game
 
       - name: 'Login via Azure CLI'

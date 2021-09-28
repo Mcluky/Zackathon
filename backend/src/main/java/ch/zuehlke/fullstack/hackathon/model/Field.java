@@ -1,7 +1,5 @@
 package ch.zuehlke.fullstack.hackathon.model;
 
-import java.util.Objects;
-
 public final class Field {
     private final FieldType type;
     private final String name;
@@ -34,26 +32,4 @@ public final class Field {
     public String name() {
         return name;
     }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this) return true;
-        if (obj == null || obj.getClass() != this.getClass()) return false;
-        var that = (Field) obj;
-        return Objects.equals(this.type, that.type) &&
-                Objects.equals(this.name, that.name);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(type, name);
-    }
-
-    @Override
-    public String toString() {
-        return "Field[" +
-                "type=" + type + ", " +
-                "name=" + name + ']';
-    }
-
 }

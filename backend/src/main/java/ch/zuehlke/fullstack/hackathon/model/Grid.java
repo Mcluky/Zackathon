@@ -1,5 +1,7 @@
 package ch.zuehlke.fullstack.hackathon.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -10,6 +12,7 @@ import static java.util.Optional.ofNullable;
 
 public record Grid(String name, Field[][] field, Map<Player, Position> playerPositions, boolean isLastGrid) {
 
+    @JsonIgnore
     public static Grid getStartingGrid(List<Player> players) throws InvalidArgumentException {
         final Map<Player, Position> startingPositions = getStartingPositions(players);
         return new Grid("startingGrid", getStartingField(startingPositions), startingPositions, false);
@@ -43,6 +46,7 @@ public record Grid(String name, Field[][] field, Map<Player, Position> playerPos
         return field;
     }
 
+    @JsonIgnore
     public Grid applyMove(Player player, Move move) throws InvalidArgumentException {
         final Position pos = getPosition(player);
         final Position newPosition = pos.getNewPosition(move);
@@ -75,6 +79,7 @@ public record Grid(String name, Field[][] field, Map<Player, Position> playerPos
         return new Grid(name, playGround, newPlayerPositions, isFinalGrid);
     }
 
+    @JsonIgnore
     public Surroundings getSurroundings(Player player) throws InvalidArgumentException {
         final Position position = getPosition(player);
         final Position[] surroundingsPositions = position.getSurroundingsPositions();

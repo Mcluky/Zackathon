@@ -1,23 +1,3 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Frontend</title>
-  <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <script src="assets/vs-code-editor/min/vs/loader.js"></script>
-</head>
-<body>
-  <app-root></app-root>
-</body>
-
-<!-- The following script will populate the vs code container -->
-<script>
-  require.config({ paths: { 'vs': 'assets/vs-code-editor/min/vs' }});
-  require(['vs/editor/editor.main'], function() {
-    var editor = monaco.editor.create(document.getElementById('vs-code-container'), {
-      value: `
 class Surroundings{up(){}down(){}left(){}right(){}}class Moves{UP;LEFT;RIGHT;DOWN;}class FieldObjects{FLAG;PLAYER;EMPTY;BORDER;}
 
 /**
@@ -57,12 +37,3 @@ const fieldObjects = new FieldObjects();
         return moves.RIGHT;
     }
 })
-`,
-      language: 'javascript',
-      automaticLayout: true,
-      theme: 'vs-dark',
-    });
-    window.vsCodeEditor = editor;
-  });
-</script>
-</html>

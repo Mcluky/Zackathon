@@ -26,6 +26,9 @@ public record Game(String name, List<Player> players) {
                     break;
                 }
             }
+            if (!winner.equals("")) {
+                break;
+            }
         }
         return new GameResult(startingGrid, turns, winner);
     }

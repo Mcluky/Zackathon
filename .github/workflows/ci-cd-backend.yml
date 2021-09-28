@@ -5,8 +5,7 @@ name: CI & CD Backend
 on:
   push:
     branches:
-      - 'backend/**'
-      - 'workflows/**'
+      - '**'
 
   workflow_dispatch:
 

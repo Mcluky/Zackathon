@@ -46,6 +46,7 @@ jobs:
           resource-group: 'zackathon-grid-game'
           dns-name-label: zackathon-game
           memory: 0.5
+          ports: 8080
           image: st4udi/zackathon-game
           name: game-backend
           location: 'westeurope'

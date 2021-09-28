@@ -19,6 +19,7 @@ public class GameHostingService {
     }
 
     public void addPlayer(Player player, String gameName) throws InvalidArgumentException {
+        finishedGames.remove(gameName);
         final Optional<Game> optionalGame = ofNullable(games.get(gameName));
         if (optionalGame.isPresent()) {
             final Game updatedGame = addPlayerToExistingGame(player, gameName, optionalGame.get());

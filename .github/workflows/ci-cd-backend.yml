@@ -57,7 +57,7 @@ jobs:
         uses: 'azure/aci-deploy@v1'
         with:
           resource-group: 'zackathon-grid-game'
-          dns-name-label: ${{ secrets.RESOURCE_GROUP }}${{ github.run_number }}
+          dns-name-label: zackathon-game
           image: st4udi/zackathon-game
           name: game-backend
           location: 'westeurope'

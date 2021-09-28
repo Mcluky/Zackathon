@@ -55,7 +55,8 @@ public class GameHostingService {
     }
 
     private GameResult getUnstartedGameFor(String player) throws InvalidArgumentException {
-        return new GameResult(Grid.getStartingGrid(List.of(new Player(player, null))), new ArrayList<>(), "");
+        final StartGridGenerator startGridGenerator = new StartGridGenerator(10);
+        return new GameResult(startGridGenerator.getStartingGrid(List.of(new Player(player))), new ArrayList<>(), "");
     }
 
 

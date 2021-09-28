@@ -7,7 +7,8 @@ public record Game(String name, List<Player> players) {
     private static final int MAX_TURNS = 200;
 
     public GameResult play() throws InvalidArgumentException {
-        final Grid startingGrid = Grid.getStartingGrid(players);
+        final StartGridGenerator startGridGenerator = new StartGridGenerator(10);
+        final Grid startingGrid = startGridGenerator.getStartingGrid(players);
         return playTurns(startingGrid);
     }
 

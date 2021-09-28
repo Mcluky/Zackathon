@@ -13,13 +13,13 @@ class GameServiceTest {
             (function() {
                 var random = Math.floor(Math.random() * (4 - 1 + 1) + 1)
                 if (random === 1) {
-                    return moves.UP;
+                    return moves.DOWN;
                 }
                 if (random === 2) {
                     return moves.DOWN;
                 }
                 if (random === 3) {
-                    return moves.LEFT;
+                    return moves.RIGHT;
                 }
                 if (random === 4) {
                     return moves.RIGHT;
@@ -54,6 +54,7 @@ class GameServiceTest {
         testee.createOrUpdateGame(script2, gameRoom, "Player2");
         final GameResult gameResultFinished = testee.getGameResultFor(gameRoom, "Player1");
 
+        System.out.println("finished in " + gameResultFinished.turns().size() + " turns");
         assertTrue(gameResultUnstarted.turns().isEmpty());
         assertFalse(gameResultFinished.turns().isEmpty());
     }

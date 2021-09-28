@@ -41,8 +41,12 @@ export class EditorComponent implements OnInit {
   }
 
   onUsernameChanged($event: Event) {
-    console.log($event)
     // @ts-ignore
     this.parameterService.userName = $event.target!.value;
+  }
+
+  onGameRoomChanged($event: KeyboardEvent) {
+    // @ts-ignore
+    this.parameterService.gameRoom = $event.target!.value;
   }
 }

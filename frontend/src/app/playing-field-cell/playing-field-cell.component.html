@@ -4,8 +4,9 @@
     <nb-card-body style="display: flex; justify-content: center; align-items: center; text-align: center; overflow: hidden">
       <div *ngIf="field!.type != 'EMPTY'" style="margin-top: 13px; position: absolute">
         <nb-icon class="fieldIcon" icon="{{getIconForFieldType(field!.type)}}"></nb-icon>
-        <p class="fieldIconText">{{field!.type}}</p>
+        <p class="fieldIconText">{{field?.name ? field!.name : field!.type}}</p>
       </div>
     </nb-card-body>
   </nb-card>
 </div>
+

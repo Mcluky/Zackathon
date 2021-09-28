@@ -1,15 +1,18 @@
 import {Component, OnInit} from '@angular/core';
 import {GridDto} from "../model/dto/grid-dto";
 import {ApiService} from "./service/api.service";
+import {Observable, of} from "rxjs";
+import {concatMap, delay, map, reduce, scan, tap} from "rxjs/operators";
+import {flatMap} from "rxjs/internal/operators";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
+  display = true;
   currentGrid?: GridDto;
-
 
   constructor(private apiService: ApiService) {
   }
@@ -23,23 +26,27 @@ export class AppComponent implements OnInit{
     this.schedulePullingResult()
   }
 
-  schedulePullingResult(){
-    setTimeout(() => {
-      this.updateGrid();
-      this.schedulePullingResult()
-    }, 1000)
+  schedulePullingResult() {
+    of("").pipe(delay(1000)).subscribe(() => {
+      this.updateGrid().subscribe(_ => {
+        console.log("AHHH")
+        this.schedulePullingResult()
+      });
+    })
   }
 
-  async updateGrid() {
-    // todo
+  updateGrid(): Observable<any> {
     console.log("Pull result")
-    let resultDto = await this.apiService.getResult().toPromise();
-    if(resultDto.turns){
-      for (const turnGrid of resultDto.turns) {
-        this.currentGrid = turnGrid;
-        await this.timeout(1000);
-      }
-    }
+
+    return this.apiService.getResult()
+      .pipe(
+        map(value => value.turns),
+        flatMap(value => value),
+        concatMap(item => of(item).pipe(delay(100))),
+        tap(turnGrid => console.log(turnGrid)),
+        tap(turnGrid => this.display = !this.display),
+        tap(turnGrid => this.currentGrid = turnGrid),
+        reduce((acc, val) => [], []))
   }
 
   timeout(timeoutDuration: number) {

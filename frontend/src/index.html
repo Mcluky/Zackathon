@@ -9,19 +9,30 @@
   <script src="assets/vs-code-editor/min/vs/loader.js"></script>
 </head>
 <body>
-  <app-root></app-root>
+<app-root></app-root>
 </body>
 
 <!-- The following script will populate the vs code container -->
 <script>
-  require.config({ paths: { 'vs': 'assets/vs-code-editor/min/vs' }});
-  require(['vs/editor/editor.main'], function() {
+  require.config({paths: {'vs': 'assets/vs-code-editor/min/vs'}});
+  require(['vs/editor/editor.main'], function () {
     var editor = monaco.editor.create(document.getElementById('vs-code-container'), {
-      value: [
-        'function x() {',
-        '\tconsole.log("Hello world!");',
-        '}'
-      ].join('\n'),
+      value:
+        `(function() {
+  var random = Math.floor(Math.random() * (4 - 1 + 1) + 1)
+  if (random === 1) {
+    return moves.UP;
+  }
+  if (random === 2) {
+    return moves.DOWN;
+  }
+  if (random === 3) {
+    return moves.LEFT;
+  }
+  if (random === 4) {
+    return moves.RIGHT;
+  }
+})`,
       language: 'javascript',
       automaticLayout: true,
       theme: 'vs-dark',

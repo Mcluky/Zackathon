@@ -1,0 +1,10 @@
+<nb-card>
+  <nb-card-header><h4>Success 🎉<nb-icon style="float: right" icon="close-outline" [options]="{animation: {type: 'pulse'}}" (click)="dialogRef.close()"></nb-icon></h4></nb-card-header>
+  <nb-card-body>
+    <p>Successfully sent the code! As soon as both players have submitted their code the game will begin.</p>
+    <p>Good Luck 😉</p>
+  </nb-card-body>
+  <nb-card-footer>
+    <button nbButton (click)="dialogRef.close()">Okay!</button>
+  </nb-card-footer>
+</nb-card>

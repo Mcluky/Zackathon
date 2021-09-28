@@ -1,0 +1,14 @@
+<div #vsCodeEditor id="vs-code-container" ></div>
+<div id="controls">
+  <nb-card>
+    <nb-card-header>Controls</nb-card-header>
+    <nb-card-body style="display: flex; gap: 10px 20px; flex-wrap: wrap">
+      <input type="text" nbInput placeholder="Game Room" disabled [value]="parameterService.gameRoom">
+      <input type="text" nbInput placeholder="Username" [value]="parameterService.userName" (keyup)="onUsernameChanged($event)" >
+      <button nbButton (click)="submitCode()">Send Code 🏴</button>
+    </nb-card-body>
+  </nb-card>
+</div>
+<div>
+  <img src="assets/ad-banner.png" style="width: 100%;">
+</div>

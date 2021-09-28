@@ -1,0 +1,10 @@
+<nb-card>
+  <nb-card-header><h4>Error! 😟<nb-icon style="float: right" icon="close-outline" [options]="{animation: {type: 'pulse'}}" (click)="dialogRef.close()"></nb-icon></h4></nb-card-header>
+  <nb-card-body>
+    <p>Failed to submit code. Check your code or network connection and try again.</p>
+    <p>Let's hope it works this time 🤞🏻</p>
+  </nb-card-body>
+  <nb-card-footer>
+    <button nbButton (click)="dialogRef.close()">Let's try again!</button>
+  </nb-card-footer>
+</nb-card>

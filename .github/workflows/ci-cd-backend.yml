@@ -60,4 +60,4 @@ jobs:
           dns-name-label: ${{ secrets.RESOURCE_GROUP }}${{ github.run_number }}
           image: st4udi/zackathon-game
           name: game-backend
-          location: 'west eu'
+          location: 'westeurope'

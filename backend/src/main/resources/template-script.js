@@ -1,30 +1,4 @@
-class Surroundings {
-    up() {
-    }
-
-    down() {
-    }
-
-    left() {
-    }
-
-    right() {
-    }
-}
-
-class Moves {
-    UP;
-    LEFT;
-    RIGHT;
-    DOWN;
-}
-
-class FieldObjects {
-    FLAG;
-    PLAYER;
-    EMPTY;
-    BORDER;
-}
+class Surroundings{up(){}down(){}left(){}right(){}}class Moves{UP;LEFT;RIGHT;DOWN;}class FieldObjects{FLAG;PLAYER;EMPTY;BORDER;}
 
 /**
  * content of the fields surrounding your avatar

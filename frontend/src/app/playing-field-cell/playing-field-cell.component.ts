@@ -9,7 +9,8 @@ import {FieldDto} from "../../model/dto/field-dto";
 export class PlayingFieldCellComponent implements OnInit {
   private iconsMap = {
     'PLAYER': 'person-outline',
-    'FLAG': 'flag-outline'
+    'FLAG': 'flag-outline',
+    'BORDER': 'cube-outline'
   }
 
   @Input()

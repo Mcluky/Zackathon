@@ -1,4 +1,4 @@
-import {Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, EventEmitter, HostListener, OnInit, Output, ViewChild} from '@angular/core';
 import {editor} from "monaco-editor";
 import IStandaloneCodeEditor = editor.IStandaloneCodeEditor;
 import {ApiService} from "../service/api.service";
@@ -16,6 +16,7 @@ export class EditorComponent implements OnInit {
 
   @ViewChild('vsCodeEditor')
   vsCodeEditor?: ElementRef;
+  @Output() onSubmitCode: EventEmitter<any> = new EventEmitter();
 
   constructor(private apiService: ApiService, private dialogService: NbDialogService,
               public parameterService: ParameterService) {
@@ -34,6 +35,7 @@ export class EditorComponent implements OnInit {
     console.log("Sending Code: " + code)
     this.apiService.sendCode(code).subscribe(_ => {
       this.dialogService.open(SuccessSubmitCodeDialogComponent);
+      this.onSubmitCode.emit();
     }, error => {
       console.error(error);
       this.dialogService.open(FailedSubmitCodeDialogComponent);

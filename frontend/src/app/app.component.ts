@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {GridDto} from "../model/dto/grid-dto";
 import {ApiService} from "./service/api.service";
 import {Observable, of} from "rxjs";
-import {concatMap, delay, map, reduce, scan, tap} from "rxjs/operators";
+import {concatMap, delay, map, reduce, tap} from "rxjs/operators";
 import {flatMap} from "rxjs/internal/operators";
 
 @Component({
@@ -28,9 +28,11 @@ export class AppComponent implements OnInit {
 
   schedulePullingResult() {
     of("").pipe(delay(1000)).subscribe(() => {
-      this.updateGrid().subscribe(_ => {
+      this.updateGrid().subscribe(finishedGame => {
         console.log("AHHH")
-        this.schedulePullingResult()
+        if (!finishedGame){
+          this.schedulePullingResult()
+        }
       });
     })
   }
@@ -43,13 +45,15 @@ export class AppComponent implements OnInit {
         map(value => value.turns),
         flatMap(value => value),
         concatMap(item => of(item).pipe(delay(100))),
-        tap(turnGrid => console.log(turnGrid)),
-        tap(turnGrid => this.display = !this.display),
         tap(turnGrid => this.currentGrid = turnGrid),
-        reduce((acc, val) => [], []))
+        reduce((acc, val) => (val.isLastGrid || acc), false))
   }
 
   timeout(timeoutDuration: number) {
     return new Promise(resolve => setTimeout(resolve, timeoutDuration));
+  }
+
+  onSubmitCode() {
+    this.schedulePullingResult();
   }
 }

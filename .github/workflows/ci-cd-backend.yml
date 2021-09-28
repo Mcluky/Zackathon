@@ -35,9 +35,10 @@ jobs:
         with:
           java-version: 16
 
+      - run: chmod +x ./gradlew
+
       - name: 'Build'
         uses: gradle/gradle-build-action@v1
-        run: chmod +x ./gradlew
         env:
           DOCKERHUB_USER: st4udi
           DOCKERHUB_PWD: ${{secrets.DOCKER_HUB_ACCESS_TOKEN}}

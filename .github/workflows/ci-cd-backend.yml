@@ -42,7 +42,7 @@ jobs:
           DOCKERHUB_USER: st4udi
           DOCKERHUB_PWD: ${{secrets.DOCKER_HUB_ACCESS_TOKEN}}
         with:
-          gradle-executable: ./gradle
+          gradle-executable: ./gradle/wrapper
           arguments:
 
             test

@@ -43,7 +43,7 @@ jobs:
           DOCKERHUB_PWD: ${{secrets.DOCKER_HUB_ACCESS_TOKEN}}
         with:
           build-root-directory: ../
-          gradle-executable: ./gradlew
+          gradle-executable: ../gradlew
           arguments:
 
             test

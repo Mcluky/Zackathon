@@ -70,13 +70,23 @@ public record Grid(String name, Field[][] field, Map<Player, Position> playerPos
     }
 
     private Grid movePlayer(Player player, Position pos, Position newPosition, Field desiredField) {
-        Field[][] playGround = field;
+        Field[][] playground = copyPlayground();
         boolean isFinalGrid = desiredField.isFlag();
-        playGround[pos.x()][pos.y()] = new Field(EMPTY);
-        playGround[newPosition.x()][newPosition.y()] = new Field(PLAYER, player.name());
+        playground[pos.x()][pos.y()] = new Field(EMPTY);
+        playground[newPosition.x()][newPosition.y()] = new Field(PLAYER, player.name());
         Map<Player, Position> newPlayerPositions = new HashMap<>(Map.copyOf(this.playerPositions));
         newPlayerPositions.put(player, newPosition);
-        return new Grid(name, playGround, newPlayerPositions, isFinalGrid);
+        return new Grid(name, playground, newPlayerPositions, isFinalGrid);
+    }
+
+    private Field[][] copyPlayground() {
+        Field[][] playGround = new Field[field.length][field[0].length];
+        for (int i = 0; i < field.length; i++) {
+            for (int j = 0; j < field[i].length; j++) {
+                playGround[i][j] = field[i][j];
+            }
+        }
+        return playGround;
     }
 
     @JsonIgnore

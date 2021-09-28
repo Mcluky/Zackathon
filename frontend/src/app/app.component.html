@@ -1,23 +1,29 @@
 <nb-layout>
 
   <nb-layout-header fixed>
-    <h2>Awesome Game</h2>
+    <h2>Some Assembly Required</h2>
   </nb-layout-header>
 
   <nb-layout-column>
-
-    <div style="display: flex; justify-content: center; align-items: center; width: 100%; height: 100%">
-      <div *ngIf="currentGrid; else showSpinner" style="width: 100%">
-        <app-playing-field [grid]="currentGrid"></app-playing-field>
+    <div id="center-on-big-screen-container" >
+      <div id="center-on-big-screen-item">
+        <h3>{{currentGrid?.name}}</h3>
+        <div id="controls-container">
+          <div
+            style="order: 1;  flex: 1 1 0; display: flex; justify-content: center; align-items: center; width: 100%; height: 100%">
+            <div *ngIf="currentGrid; else showSpinner" style="width: 100%">
+              <app-playing-field [grid]="currentGrid"></app-playing-field>
+            </div>
+            <ng-template #showSpinner>
+              <nb-card [nbSpinner]="!currentGrid" style="width: 100px; height: 100px">
+                <nb-card-body></nb-card-body>
+              </nb-card>
+            </ng-template>
+          </div>
+          <app-editor id="editor" style="order: 2; flex: 1 1 0;"></app-editor>
+        </div>
       </div>
-      <ng-template #showSpinner>
-        <nb-card [nbSpinner]="!currentGrid" style="width: 100px; height: 100px">
-          <nb-card-body></nb-card-body>
-        </nb-card>
-      </ng-template>
     </div>
-
-
   </nb-layout-column>
 
   <nb-layout-footer fixed>

@@ -1,16 +1,29 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {ResultDto} from "../../model/dto/result-dto";
+import {ParameterService} from "./parameter.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private parameterService: ParameterService) {
 
-  getResult(): Observable<ResultDto>{
-    return this.http.get<ResultDto>('http://localhost:4200/v1/game-room/asd/player/sd/result');
+  }
+
+  getResult(): Observable<ResultDto> {
+    let userName = this.parameterService.userName;
+    let gameRoom = this.parameterService.gameRoom;
+    return this.http.get<ResultDto>(`http://localhost:4200/v1/game-room/${gameRoom}/player/${userName}/result`);
+  }
+
+  sendCode(code: string): Observable<any> {
+    let userName = this.parameterService.userName;
+    let gameRoom = this.parameterService.gameRoom;
+    return this.http.post(`http://localhost:4200/v1/game-room/${gameRoom}/player/${userName}/result`, code);
+    //todo change
+    //  return this.http.post('http://localhost:4200/v1/game-room/asd/player/sd/register', code);
   }
 }

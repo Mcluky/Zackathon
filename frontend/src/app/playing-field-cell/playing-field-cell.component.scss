@@ -1,0 +1,21 @@
+.fieldIcon {
+  width: 80%;
+  height: 50%
+}
+
+.fieldIconText {
+  margin-top: 0.14vw;
+  font-size: 1vw;
+}
+
+@media screen and (min-width: 1900px) {
+  .fieldIcon {
+    width: 70%;
+    height: 45%
+  }
+
+  .fieldIconText {
+    margin-top: 5px;
+    font-size: 18px;
+  }
+}

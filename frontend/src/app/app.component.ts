@@ -18,5 +18,31 @@ export class AppComponent implements OnInit{
     this.apiService.getResult().subscribe(resultDto => {
       this.currentGrid = resultDto.startGrid;
     })
+
+    console.log("Schedule Pulling Result")
+    this.schedulePullingResult()
+  }
+
+  schedulePullingResult(){
+    setTimeout(() => {
+      this.updateGrid();
+      this.schedulePullingResult()
+    }, 1000)
+  }
+
+  async updateGrid() {
+    // todo
+    console.log("Pull result")
+    let resultDto = await this.apiService.getResult().toPromise();
+    if(resultDto.turns){
+      for (const turnGrid of resultDto.turns) {
+        this.currentGrid = turnGrid;
+        await this.timeout(1000);
+      }
+    }
+  }
+
+  timeout(timeoutDuration: number) {
+    return new Promise(resolve => setTimeout(resolve, timeoutDuration));
   }
 }

@@ -22,7 +22,7 @@ export class ApiService {
   sendCode(code: string): Observable<any> {
     let userName = this.parameterService.userName;
     let gameRoom = this.parameterService.gameRoom;
-    return this.http.post(`http://localhost:4200/v1/game-room/${gameRoom}/player/${userName}/result`, code);
+    return this.http.post(`http://localhost:4200/v1/game-room/${gameRoom}/player/${userName}/register`, code);
     //todo change
     //  return this.http.post('http://localhost:4200/v1/game-room/asd/player/sd/register', code);
   }

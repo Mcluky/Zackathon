@@ -1,5 +1,8 @@
 package ch.zuehlke.fullstack.hackathon.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public final class Field {
     private final FieldType type;
     private final String name;
@@ -14,6 +17,7 @@ public final class Field {
         this.name = name;
     }
 
+    @JsonIgnore
     public boolean moveToIsPossible() {
         return switch (type) {
             case EMPTY, FLAG -> true;
@@ -21,14 +25,17 @@ public final class Field {
         };
     }
 
+    @JsonIgnore
     public boolean isFlag() {
         return type == FieldType.FLAG;
     }
 
+    @JsonProperty
     public FieldType type() {
         return type;
     }
 
+    @JsonProperty
     public String name() {
         return name;
     }

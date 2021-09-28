@@ -37,12 +37,15 @@ jobs:
 
       - name: 'Build'
         uses: gradle/gradle-build-action@v1
+
         env:
           DOCKERHUB_USER: st4udi
           DOCKERHUB_PWD: ${{secrets.DOCKER_HUB_ACCESS_TOKEN}}
         with:
+          gradle-executable: ./gradlew
           arguments:
-            build
+
+            test
             jib --image=st4udi/zackathon-game
 
       - name: 'Login via Azure CLI'

@@ -6,8 +6,27 @@
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <script src="assets/vs-code-editor/min/vs/loader.js"></script>
 </head>
 <body>
   <app-root></app-root>
 </body>
+
+<!-- The following script will populate the vs code container -->
+<script>
+  require.config({ paths: { 'vs': 'assets/vs-code-editor/min/vs' }});
+  require(['vs/editor/editor.main'], function() {
+    var editor = monaco.editor.create(document.getElementById('vs-code-container'), {
+      value: [
+        'function x() {',
+        '\tconsole.log("Hello world!");',
+        '}'
+      ].join('\n'),
+      language: 'javascript',
+      automaticLayout: true,
+      theme: 'vs-dark',
+    });
+    window.vsCodeEditor = editor;
+  });
+</script>
 </html>

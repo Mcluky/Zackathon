@@ -3,8 +3,8 @@
   <nb-card style="width: 100%; height: 100%">
     <nb-card-body style="display: flex; justify-content: center; align-items: center; text-align: center; overflow: hidden">
       <div *ngIf="field!.type != 'EMPTY'" style="margin-top: 13px; position: absolute">
-        <nb-icon style="width: 80%; height: 50%" icon="{{getIconForFieldType(field!.type)}}"></nb-icon>
-        <p style="margin-top: 0.15vw; font-size: 1vw;">{{field!.type}}</p>
+        <nb-icon class="fieldIcon" icon="{{getIconForFieldType(field!.type)}}"></nb-icon>
+        <p class="fieldIconText">{{field!.type}}</p>
       </div>
     </nb-card-body>
   </nb-card>

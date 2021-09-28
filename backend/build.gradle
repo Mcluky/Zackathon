@@ -42,7 +42,7 @@ jib{
         }
     }
     container {
-        ports = ["80"]
+        ports = ["8080"]
     }
 }
 

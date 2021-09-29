@@ -12,6 +12,9 @@ class PositionTest {
 
         final Position[] actual = new Position(2, 2).getSurroundingsPositions();
 
-        assertEquals(expected, actual);
+        assertEquals(expected[0], actual[0]);
+        assertEquals(expected[1], actual[1]);
+        assertEquals(expected[2], actual[2]);
+        assertEquals(expected[3], actual[3]);
     }
 }

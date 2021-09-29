@@ -3,9 +3,10 @@
   <nb-card>
     <nb-card-header>Controls</nb-card-header>
     <nb-card-body style="display: flex; gap: 10px 20px; flex-wrap: wrap">
-      <input type="text" nbInput placeholder="Game Room" [value]="parameterService.gameRoom" (keyup)="onGameRoomChanged($event)">
+      <input type="text" nbInput placeholder="Game Room" [value]="parameterService.gameRoom" (keyup)="onGameRoomNameChanged($event)">
       <input type="text" nbInput placeholder="Username" [value]="parameterService.userName" (keyup)="onUsernameChanged($event)" maxlength="7" >
       <button nbButton (click)="submitCode()">Send Code 🏴</button>
+      <button nbButton (click)="resetGameRoom()">Reset Game Room</button>
     </nb-card-body>
   </nb-card>
 </div>

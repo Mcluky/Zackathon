@@ -16,7 +16,13 @@ export class EditorComponent implements OnInit {
 
   @ViewChild('vsCodeEditor')
   vsCodeEditor?: ElementRef;
-  @Output() onSubmitCode: EventEmitter<any> = new EventEmitter();
+
+  @Output()
+  onSubmitCode: EventEmitter<any> = new EventEmitter();
+
+  @Output()
+  onGameRoomChanged: EventEmitter<string> = new EventEmitter();
+
 
   constructor(private apiService: ApiService, private dialogService: NbDialogService,
               public parameterService: ParameterService) {
@@ -47,8 +53,14 @@ export class EditorComponent implements OnInit {
     this.parameterService.userName = $event.target!.value;
   }
 
-  onGameRoomChanged($event: KeyboardEvent) {
+  onGameRoomNameChanged($event: KeyboardEvent) {
     // @ts-ignore
     this.parameterService.gameRoom = $event.target!.value;
+    this.onGameRoomChanged.emit(this.parameterService.gameRoom);
+  }
+
+  resetGameRoom() {
+    this.apiService.resetGameRoom().subscribe(value => value);
+    this.onGameRoomChanged.emit(this.parameterService.gameRoom);
   }
 }

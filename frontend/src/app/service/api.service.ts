@@ -19,6 +19,12 @@ export class ApiService {
     return this.http.get<ResultDto>(`http://localhost:4200/v1/game-room/${gameRoom}/player/${userName}/result`);
   }
 
+  resetGameRoom(): Observable<ResultDto> {
+    let userName = this.parameterService.userName;
+    let gameRoom = this.parameterService.gameRoom;
+    return this.http.get<ResultDto>(`http://localhost:4200/v1/game-room/${gameRoom}/player/${userName}/reset`);
+  }
+
   sendCode(code: string): Observable<any> {
     let userName = this.parameterService.userName;
     let gameRoom = this.parameterService.gameRoom;

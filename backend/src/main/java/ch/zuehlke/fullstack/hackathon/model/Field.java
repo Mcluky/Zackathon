@@ -30,6 +30,12 @@ public final class Field {
         return type == FieldType.FLAG;
     }
 
+    @JsonIgnore
+    public String getSpacedType() {
+        String standardLength = "      ";
+        return type.name() + standardLength.substring(0, 6-type.name().length());
+    }
+
     @JsonProperty
     public FieldType type() {
         return type;

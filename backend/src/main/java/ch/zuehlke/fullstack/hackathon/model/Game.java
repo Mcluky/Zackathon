@@ -19,6 +19,7 @@ public record Game(String name, List<Player> players) {
         for (int i = 0; i < MAX_TURNS; i++) {
             for (Player player : players) {
                 Surroundings surroundings = grid.getSurroundings(player);
+                System.out.println(player.name() + "has environment: " + surroundings);
                 final Grid newPlayField = grid.applyMove(player, player.decideMove(surroundings));
                 turns.add(newPlayField);
                 grid = newPlayField;

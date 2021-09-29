@@ -13,40 +13,6 @@ import static java.util.Optional.ofNullable;
 public record Grid(String name, Field[][] field, Map<Player, Position> playerPositions, boolean isLastGrid) {
 
     @JsonIgnore
-    public static Grid getStartingGrid(List<Player> players) throws InvalidArgumentException {
-        final Map<Player, Position> startingPositions = getStartingPositions(players);
-        return new Grid("startingGrid", getStartingField(startingPositions), startingPositions, false);
-    }
-
-    private static Map<Player, Position> getStartingPositions(List<Player> players) throws InvalidArgumentException {
-        if (players.size() == 0) {
-            return Map.of();
-        }
-        if (players.size() == 1) {
-            return Map.of(players.get(0), new Position(3, 3));
-        }
-        if (players.size() == 2) {
-            return Map.of(players.get(0), new Position(3, 3), players.get(1), new Position(6, 6));
-        }
-        throw new InvalidArgumentException("invalid number of players: " + players.size() + ", cannot distribute starting positions");
-    }
-
-    private static Field[][] getStartingField(Map<Player, Position> playerPositions) {
-        final Field[][] field = new Field[10][10];
-        for (Field[] row : field) {
-            Arrays.fill(row, new Field(EMPTY));
-        }
-        field[0][0] = new Field(FLAG);
-        field[9][9] = new Field(FLAG);
-        for (Map.Entry<Player, Position> entry : playerPositions.entrySet()) {
-            Player player = entry.getKey();
-            Position position = entry.getValue();
-            field[position.x()][position.y()] = new Field(PLAYER, player.name());
-        }
-        return field;
-    }
-
-    @JsonIgnore
     public Grid applyMove(Player player, Move move) throws InvalidArgumentException {
         final Position pos = getPosition(player);
         final Position newPosition = pos.getNewPosition(move);
@@ -54,6 +20,7 @@ public record Grid(String name, Field[][] field, Map<Player, Position> playerPos
         if (desiredField.moveToIsPossible()) {
             return movePlayer(player, pos, newPosition, desiredField);
         }
+        System.out.println(player.name() + " bumped into a wall (/.-)");
         return this;
     }
 
@@ -76,6 +43,7 @@ public record Grid(String name, Field[][] field, Map<Player, Position> playerPos
         playground[newPosition.x()][newPosition.y()] = new Field(PLAYER, player.name());
         Map<Player, Position> newPlayerPositions = new HashMap<>(Map.copyOf(this.playerPositions));
         newPlayerPositions.put(player, newPosition);
+        System.out.println(player.name() + " moved to " + newPosition + " onto " + field[newPosition.x()][newPosition.y()].type().name());
         return new Grid(name, playground, newPlayerPositions, isFinalGrid);
     }
 
@@ -101,5 +69,19 @@ public record Grid(String name, Field[][] field, Map<Player, Position> playerPos
                 getFieldFor(surroundingsPositions[1]).type(),
                 getFieldFor(surroundingsPositions[2]).type(),
                 getFieldFor(surroundingsPositions[3]).type());
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder fieldBuilder = new StringBuilder("####################\n " +name + ":\n |");
+        for (Field[] row : field) {
+            for (Field cell: row) {
+                fieldBuilder.append(cell.getSpacedType());
+                fieldBuilder.append(" | ");
+            }
+            fieldBuilder.append("\n |");
+        }
+        fieldBuilder.append("######################");
+        return fieldBuilder.toString();
     }
 }

@@ -8,7 +8,7 @@ public record Game(String name, List<Player> players) {
 
     public GameResult play() throws InvalidArgumentException {
         final StartGridGenerator startGridGenerator = new StartGridGenerator(10);
-        final Grid startingGrid = startGridGenerator.getStartingGrid(players);
+        final Grid startingGrid = startGridGenerator.getStartingGrid(players, name);
         return playTurns(startingGrid);
     }
 
@@ -20,7 +20,7 @@ public record Game(String name, List<Player> players) {
             for (Player player : players) {
                 Surroundings surroundings = grid.getSurroundings(player);
                 System.out.println(player.name() + "has environment: " + surroundings);
-                final Grid newPlayField = grid.applyMove(player, player.decideMove(surroundings), i);
+                final Grid newPlayField = grid.applyMove(player, player.decideMove(surroundings), i, name);
                 turns.add(newPlayField);
                 grid = newPlayField;
                 if (newPlayField.isLastGrid()) {

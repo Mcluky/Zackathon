@@ -23,9 +23,9 @@ public class StartGridGenerator {
         return field;
     }
 
-    public Grid getStartingGrid(List<Player> players) throws InvalidArgumentException {
+    public Grid getStartingGrid(List<Player> players, String gameName) throws InvalidArgumentException {
         final Map<Player, Position> startingPositions = getStartingPositions(players);
-        return new Grid("startingGrid", getStartingField(startingPositions), startingPositions, false);
+        return new Grid(gameName, getStartingField(startingPositions), startingPositions, false);
     }
 
     private Map<Player, Position> getStartingPositions(List<Player> players) throws InvalidArgumentException {
@@ -63,6 +63,6 @@ public class StartGridGenerator {
         field[9][5] = new Field(BORDER);
         field[8][6] = new Field(BORDER);
         field[7][7] = new Field(BORDER);
-        field[6][8] = new Field(BORDER);
+        field[5][9] = new Field(BORDER);
     }
 }

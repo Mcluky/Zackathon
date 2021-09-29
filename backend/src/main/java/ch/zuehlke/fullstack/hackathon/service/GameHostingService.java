@@ -52,12 +52,12 @@ public class GameHostingService {
     }
 
     public GameResult getFinishedGame(String gameName, String playerName) throws InvalidArgumentException {
-        return ofNullable(finishedGames.get(gameName)).orElse(getUnstartedGameFor(playerName));
+        return ofNullable(finishedGames.get(gameName)).orElse(getUnstartedGameFor(playerName, gameName));
     }
 
-    private GameResult getUnstartedGameFor(String player) throws InvalidArgumentException {
+    private GameResult getUnstartedGameFor(String player, String gameName) throws InvalidArgumentException {
         final StartGridGenerator startGridGenerator = new StartGridGenerator(10);
-        return new GameResult(startGridGenerator.getStartingGrid(List.of(new Player(player))), new ArrayList<>(), "");
+        return new GameResult(startGridGenerator.getStartingGrid(List.of(new Player(player)), gameName), new ArrayList<>(), "");
     }
 
 

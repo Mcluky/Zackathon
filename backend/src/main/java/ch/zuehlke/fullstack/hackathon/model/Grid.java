@@ -11,8 +11,8 @@ import static java.util.Optional.ofNullable;
 public record Grid(String name, Field[][] field, Map<Player, Position> playerPositions, boolean isLastGrid) {
 
     @JsonIgnore
-    public Grid applyMove(Player player, Move move, int moveNumber) throws InvalidArgumentException {
-        String newName = "Turn " + moveNumber;
+    public Grid applyMove(Player player, Move move, int moveNumber, String gameName) throws InvalidArgumentException {
+        String newName = gameName + ": Turn " + moveNumber;
         final Position pos = getPosition(player);
         final Position newPosition = pos.getNewPosition(move);
         Field desiredField = getFieldFor(newPosition);

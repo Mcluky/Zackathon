@@ -12,19 +12,19 @@ class GridTest {
     void testToString() throws InvalidArgumentException {
         String expected = """
                 ####################
-                 startingGrid:
+                 GameName:
                  |EMPTY  | PLAYER | EMPTY  | EMPTY  | EMPTY  | EMPTY  | EMPTY  | EMPTY  | EMPTY  | EMPTY  |\s
                  |PLAYER | EMPTY  | EMPTY  | EMPTY  | EMPTY  | EMPTY  | EMPTY  | EMPTY  | EMPTY  | EMPTY  |\s
                  |EMPTY  | EMPTY  | EMPTY  | EMPTY  | EMPTY  | EMPTY  | EMPTY  | EMPTY  | EMPTY  | EMPTY  |\s
                  |EMPTY  | EMPTY  | EMPTY  | EMPTY  | EMPTY  | EMPTY  | EMPTY  | EMPTY  | EMPTY  | EMPTY  |\s
                  |EMPTY  | EMPTY  | EMPTY  | EMPTY  | EMPTY  | EMPTY  | EMPTY  | BORDER | EMPTY  | EMPTY  |\s
-                 |EMPTY  | EMPTY  | EMPTY  | EMPTY  | EMPTY  | BORDER | BORDER | EMPTY  | EMPTY  | EMPTY  |\s
-                 |EMPTY  | EMPTY  | EMPTY  | EMPTY  | EMPTY  | EMPTY  | EMPTY  | EMPTY  | BORDER | EMPTY  |\s
+                 |EMPTY  | EMPTY  | EMPTY  | EMPTY  | EMPTY  | BORDER | BORDER | EMPTY  | EMPTY  | BORDER |\s
+                 |EMPTY  | EMPTY  | EMPTY  | EMPTY  | EMPTY  | EMPTY  | EMPTY  | EMPTY  | EMPTY  | EMPTY  |\s
                  |EMPTY  | EMPTY  | EMPTY  | EMPTY  | EMPTY  | EMPTY  | EMPTY  | BORDER | EMPTY  | EMPTY  |\s
                  |EMPTY  | EMPTY  | EMPTY  | EMPTY  | EMPTY  | EMPTY  | BORDER | EMPTY  | EMPTY  | EMPTY  |\s
                  |EMPTY  | EMPTY  | EMPTY  | EMPTY  | EMPTY  | BORDER | EMPTY  | EMPTY  | EMPTY  | FLAG   |\s
                  |######################""";
-        final Grid startingGrid = new StartGridGenerator(10).getStartingGrid(List.of(new Player("Dude"), new Player("Dudette")));
+        final Grid startingGrid = new StartGridGenerator(10).getStartingGrid(List.of(new Player("Dude"), new Player("Dudette")), "GameName");
         assertEquals(expected, startingGrid.toString());
     }
 }

@@ -82,4 +82,8 @@ public record Grid(String name, Field[][] field, Map<Player, Position> playerPos
         fieldBuilder.append("######################");
         return fieldBuilder.toString();
     }
+
+    public Grid convertToLastGrid() {
+        return new Grid(name, field, playerPositions, true);
+    }
 }

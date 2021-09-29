@@ -32,6 +32,15 @@ public record Game(String name, List<Player> players) {
                 break;
             }
         }
+        markLastGrid(turns);
         return new GameResult(startingGrid, turns, winner);
+    }
+
+    private void markLastGrid(List<Grid> turns) {
+        final Grid lastGrid = turns.get(turns.size() - 1);
+        if (!lastGrid.isLastGrid()) {
+            turns.remove(lastGrid);
+            turns.add(lastGrid.convertToLastGrid());
+        }
     }
 }

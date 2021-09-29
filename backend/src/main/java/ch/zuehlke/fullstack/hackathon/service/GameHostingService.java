@@ -61,4 +61,14 @@ public class GameHostingService {
     }
 
 
+    public void reset(String gameRoom) {
+        final Game removedActiveGame = games.remove(gameRoom);
+        final GameResult removedFinishedGame = finishedGames.remove(gameRoom);
+        if (removedActiveGame != null) {
+            System.out.println("removed active game: " + gameRoom);
+        }
+        if (removedFinishedGame != null) {
+            System.out.println("removed finished game: " + gameRoom);
+        }
+    }
 }

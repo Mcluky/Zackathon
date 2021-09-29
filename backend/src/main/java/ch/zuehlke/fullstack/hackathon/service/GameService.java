@@ -28,4 +28,8 @@ public class GameService {
         return gameHostingService.getFinishedGame(gameRoom, player);
     }
 
+    public void reset(String gameRoom, String player) {
+        System.out.println(player + " resets GameRoom: " + gameRoom);
+        gameHostingService.reset(gameRoom);
+    }
 }

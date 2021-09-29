@@ -30,6 +30,16 @@ public class GameResource {
         return gameService.getGameResultFor(gameRoom, player);
     }
 
+    @ApiOperation(value = "Reset game",
+            notes = "This can be used to reset a game")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully reset game"),
+            @ApiResponse(code = 500, message = "If something fails internally")})
+    @GetMapping("game-room/{game-room}/player/{player}/reset")
+    public void reset(@PathVariable("game-room") String gameRoom, @PathVariable("player") String player) {
+        gameService.reset(gameRoom, player);
+    }
+
     @ApiOperation(value = "Post script",
             notes = "This can be used ")
     @ApiResponses(value = {

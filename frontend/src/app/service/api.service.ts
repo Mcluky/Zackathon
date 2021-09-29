@@ -9,7 +9,7 @@ import {ParameterService} from "./parameter.service";
 })
 export class ApiService {
   // todo change for local development
-  readonly BASE_URL = `http://zackathon-game.westeurope.azurecontainer.io:8080`;
+  readonly BASE_URL = `https://some-assembly-required-backend.amapolis.dev`;
   // readonly BASE_URL = `http://localhost:4200`;
 
   constructor(private http: HttpClient, private parameterService: ParameterService) {

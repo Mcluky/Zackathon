@@ -38,8 +38,9 @@ export class EditorComponent implements OnInit {
 
   submitCode() {
     let code = this.getVsCodeEditor().getValue();
-    console.log("Sending Code: " + code)
-    this.apiService.sendCode(code).subscribe(_ => {
+    let codeWithoutTutorial = code.split("🔝 -- Don't touch the code above :) -- 🔝")[1];
+    console.log("Sending Code: " + codeWithoutTutorial)
+    this.apiService.sendCode(codeWithoutTutorial).subscribe(_ => {
       this.dialogService.open(SuccessSubmitCodeDialogComponent);
       this.onSubmitCode.emit();
     }, error => {

@@ -91,5 +91,6 @@ export class AppComponent implements OnInit {
     console.log("Reset Pulling")
     this.resultPullingScheduleInterrupter.next();
     this.resultPullingScheduleInterrupter.complete();
+    this.resultPullingScheduleInterrupter = new Subject<void>();
   }
 }

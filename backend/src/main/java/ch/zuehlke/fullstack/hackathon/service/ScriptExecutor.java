@@ -10,6 +10,8 @@ import org.graalvm.polyglot.HostAccess;
 import org.graalvm.polyglot.Value;
 
 import java.util.function.Function;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ScriptExecutor {
 
@@ -19,6 +21,13 @@ public class ScriptExecutor {
     }
 
     public Function<Surroundings, Move> generateMoveEvaluator(String script) {
+        String mydata = "some string with 'the data i want' inside";
+        Pattern pattern = Pattern.compile("(.*\\(function\\(.*)");
+        Matcher matcher = pattern.matcher(script);
+        if (matcher.find())
+        {
+            System.out.println(matcher.group(1));
+        }
         Context polyglot = Context.newBuilder("js").allowHostAccess(HostAccess.ALL).build();
         polyglot.getBindings("js").putMember("moves", new Moves());
         polyglot.getBindings("js").putMember("fieldObjects", new FieldObjects());

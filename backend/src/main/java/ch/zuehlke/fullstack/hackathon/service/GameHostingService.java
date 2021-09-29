@@ -19,6 +19,7 @@ public class GameHostingService {
     }
 
     public void addPlayer(Player player, String gameName) throws InvalidArgumentException {
+        finishedGames.remove(gameName);
         final Optional<Game> optionalGame = ofNullable(games.get(gameName));
         if (optionalGame.isPresent()) {
             final Game updatedGame = addPlayerToExistingGame(player, gameName, optionalGame.get());
@@ -51,12 +52,23 @@ public class GameHostingService {
     }
 
     public GameResult getFinishedGame(String gameName, String playerName) throws InvalidArgumentException {
-        return ofNullable(finishedGames.get(gameName)).orElse(getUnstartedGameFor(playerName));
+        return ofNullable(finishedGames.get(gameName)).orElse(getUnstartedGameFor(playerName, gameName));
     }
 
-    private GameResult getUnstartedGameFor(String player) throws InvalidArgumentException {
-        return new GameResult(Grid.getStartingGrid(List.of(new Player(player, null))), new ArrayList<>(), "");
+    private GameResult getUnstartedGameFor(String player, String gameName) throws InvalidArgumentException {
+        final StartGridGenerator startGridGenerator = new StartGridGenerator(10);
+        return new GameResult(startGridGenerator.getStartingGrid(List.of(new Player(player)), gameName), new ArrayList<>(), "");
     }
 
 
+    public void reset(String gameRoom) {
+        final Game removedActiveGame = games.remove(gameRoom);
+        final GameResult removedFinishedGame = finishedGames.remove(gameRoom);
+        if (removedActiveGame != null) {
+            System.out.println("removed active game: " + gameRoom);
+        }
+        if (removedFinishedGame != null) {
+            System.out.println("removed finished game: " + gameRoom);
+        }
+    }
 }

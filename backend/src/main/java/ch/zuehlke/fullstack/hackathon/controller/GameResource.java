@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin(originPatterns = "*")
 @RequestMapping("/v1")
 public class GameResource {
 
@@ -30,13 +31,23 @@ public class GameResource {
         return gameService.getGameResultFor(gameRoom, player);
     }
 
+    @ApiOperation(value = "Reset game",
+            notes = "This can be used to reset a game")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully reset game"),
+            @ApiResponse(code = 500, message = "If something fails internally")})
+    @GetMapping("game-room/{game-room}/player/{player}/reset")
+    public void reset(@PathVariable("game-room") String gameRoom, @PathVariable("player") String player) {
+        gameService.reset(gameRoom, player);
+    }
+
     @ApiOperation(value = "Post script",
             notes = "This can be used ")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully added player to game"),
             @ApiResponse(code = 500, message = "If something fails internally")})
-    @PostMapping("game-room/{game-room}/player/{player}/register")
-    public void postScript(String script, @PathVariable("game-room") String gameRoom, @PathVariable("player") String player) throws InvalidArgumentException {
+    @PostMapping(value = "game-room/{game-room}/player/{player}/register", consumes = "*/*")
+    public void postScript(@RequestBody String script, @PathVariable("game-room") String gameRoom, @PathVariable("player") String player) throws InvalidArgumentException {
         gameService.createOrUpdateGame(script, gameRoom, player);
     }
 }

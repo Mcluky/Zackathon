@@ -1,7 +1,6 @@
 import {TestBed} from '@angular/core/testing';
 import {RouterTestingModule} from '@angular/router/testing';
 import {AppComponent} from './app.component';
-import {ExampleComponent} from "./example-component/example.component";
 import {HttpClientModule} from "@angular/common/http";
 
 describe('AppComponent', () => {
@@ -13,7 +12,6 @@ describe('AppComponent', () => {
       ],
       declarations: [
         AppComponent,
-        ExampleComponent
       ],
     }).compileComponents();
   });
@@ -22,12 +20,6 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
-  });
-
-  it(`should have as title 'frontend'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('frontend');
   });
 
   it('should render title', () => {

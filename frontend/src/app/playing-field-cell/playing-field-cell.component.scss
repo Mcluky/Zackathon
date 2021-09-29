@@ -1,0 +1,33 @@
+.fieldIcon {
+  width: 75%;
+  height: 45%
+}
+
+.fieldIconText {
+  margin-top: 0;
+  font-size: 1.1em ;
+}
+
+@media screen and (max-width: 1400px) {
+  .fieldIcon {
+    width: 70%;
+    height: 45%
+  }
+
+  .fieldIconText {
+    font-size: 13px;
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .fieldIcon {
+    width: 70%;
+    height: 45%
+  }
+
+  .fieldIconText {
+    font-size: 16px;
+  }
+}
+
+

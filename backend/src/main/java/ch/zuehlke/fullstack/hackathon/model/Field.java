@@ -1,6 +1,7 @@
 package ch.zuehlke.fullstack.hackathon.model;
 
-import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public final class Field {
     private final FieldType type;
@@ -16,6 +17,7 @@ public final class Field {
         this.name = name;
     }
 
+    @JsonIgnore
     public boolean moveToIsPossible() {
         return switch (type) {
             case EMPTY, FLAG -> true;
@@ -23,37 +25,24 @@ public final class Field {
         };
     }
 
+    @JsonIgnore
     public boolean isFlag() {
         return type == FieldType.FLAG;
     }
 
+    @JsonIgnore
+    public String getSpacedType() {
+        String standardLength = "      ";
+        return type.name() + standardLength.substring(0, 6-type.name().length());
+    }
+
+    @JsonProperty
     public FieldType type() {
         return type;
     }
 
+    @JsonProperty
     public String name() {
         return name;
     }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this) return true;
-        if (obj == null || obj.getClass() != this.getClass()) return false;
-        var that = (Field) obj;
-        return Objects.equals(this.type, that.type) &&
-                Objects.equals(this.name, that.name);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(type, name);
-    }
-
-    @Override
-    public String toString() {
-        return "Field[" +
-                "type=" + type + ", " +
-                "name=" + name + ']';
-    }
-
 }

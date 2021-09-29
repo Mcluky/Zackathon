@@ -4,29 +4,44 @@ import ch.zuehlke.fullstack.hackathon.model.GameResult;
 import ch.zuehlke.fullstack.hackathon.model.InvalidArgumentException;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class GameServiceTest {
 
     private static final String script1 = """
             (function() {
-                if (surroundings.up() === fieldObjects.FLAG) {
-                    return moves.UP;
+                var random = Math.floor(Math.random() * (4 - 1 + 1) + 1)
+                if (random === 1) {
+                    return moves.DOWN;
                 }
-                            
-                return moves.DOWN;
-                })
+                if (random === 2) {
+                    return moves.DOWN;
+                }
+                if (random === 3) {
+                    return moves.RIGHT;
+                }
+                if (random === 4) {
+                    return moves.RIGHT;
+                }
+            })
             """;
     private static final String script2 = """
             (function() {
-                const allSurroundings = [surroundings.up(), surroundings.down(), surroundings.left(), surroundings.right()]
-                
-                if (surroundings.up() === fieldObjects.FLAG) {
+                var random = Math.floor(Math.random() * (4 - 1 + 1) + 1)
+                if (random === 1) {
                     return moves.UP;
                 }
-                            
-                return moves.DOWN;
-                })
+                if (random === 2) {
+                    return moves.LEFT;
+                }
+                if (random === 3) {
+                    return moves.UP;
+                }
+                if (random === 4) {
+                    return moves.LEFT;
+                }
+            })
             """;
 
     @Test
@@ -36,14 +51,12 @@ class GameServiceTest {
         final String gameRoom = "SomeRoom";
         testee.createOrUpdateGame(script1, gameRoom, "Player1");
         final GameResult gameResultUnstarted = testee.getGameResultFor(gameRoom, "Player1");
-        testee.createOrUpdateGame(script1, gameRoom, "Player2");
+        testee.createOrUpdateGame(script2, gameRoom, "Player2");
         final GameResult gameResultFinished = testee.getGameResultFor(gameRoom, "Player1");
 
+        System.out.println("finished in " + gameResultFinished.turns().size() + " turns");
         assertTrue(gameResultUnstarted.turns().isEmpty());
-        assertEquals(400, gameResultFinished.turns().size());
-        assertEquals("", gameResultFinished.winner());
         assertFalse(gameResultFinished.turns().isEmpty());
-
     }
 
 }

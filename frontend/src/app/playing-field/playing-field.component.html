@@ -1,0 +1,8 @@
+<table style="width: 100%">
+  <tr *ngFor="let gridRow of grid?.field" style="display: flex">
+    <td *ngFor="let field of gridRow" style="flex-shrink: 1;flex-grow: 1;flex-basis: 0;">
+      <app-playing-field-cell [field]="field"></app-playing-field-cell>
+    </td>
+  </tr>
+</table>
+

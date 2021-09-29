@@ -1,0 +1,35 @@
+#controls-container {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  gap: 20px 20px;
+}
+
+#editor {
+  width: 100%;
+}
+
+@media screen and (max-width: 1100px) {
+  #controls-container {
+    flex-wrap: wrap;
+  }
+
+  #editor {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 1900px) {
+  #controls-container {
+    width: 1900px;
+  }
+
+  #center-on-big-screen-item {
+
+  }
+
+  #center-on-big-screen-container {
+    display: flex;
+    justify-content: center;
+  }
+}

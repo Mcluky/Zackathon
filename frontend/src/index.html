@@ -3,11 +3,59 @@
 <head>
   <meta charset="utf-8">
   <title>Frontend</title>
-  <base  href="/">
+  <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <script src="assets/vs-code-editor/min/vs/loader.js"></script>
 </head>
 <body>
   <app-root></app-root>
 </body>
+
+<!-- The following script will populate the vs code container -->
+<script>
+  require.config({ paths: { 'vs': 'assets/vs-code-editor/min/vs' }});
+  require(['vs/editor/editor.main'], function() {
+    var editor = monaco.editor.create(document.getElementById('vs-code-container'), {
+      value: `class Surroundings{up(){}down(){}left(){}right(){}}class Moves{UP;LEFT;RIGHT;DOWN;}class FieldObjects{FLAG;PLAYER;EMPTY;BORDER;}
+// content of the fields surrounding your avatar
+const surroundings = new Surroundings();
+// return one of these to make a move in the desired direction
+const moves = new Moves();
+// possible content of Fields
+// FLAG: Goal if you move to the flag field you win
+// EMPTY: an empty field you can move to
+// PLAYER: another player, you can't move to this field
+// BOARDER: this field is outside the map you cant move here
+const fieldObjects = new FieldObjects();
+// 🔝 -- Don't touch the code above :) -- 🔝
+
+(function () {
+    // Replace the content of this function with your code 😉
+    if (surroundings.down() === fieldObjects.FLAG) {
+        return moves.DOWN;
+    }
+    var random = Math.floor(Math.random() * 4 + 1)
+
+    if (random === 1) {
+        return moves.UP;
+    }
+    if (random === 2) {
+        return moves.DOWN;
+    }
+    if (random === 3) {
+        return moves.LEFT;
+    }
+    if (random === 4) {
+        return moves.RIGHT;
+    }
+})
+`,
+      language: 'javascript',
+      automaticLayout: true,
+      theme: 'vs-dark',
+    });
+    window.vsCodeEditor = editor;
+  });
+</script>
 </html>

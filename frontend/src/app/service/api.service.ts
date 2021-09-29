@@ -8,6 +8,9 @@ import {ParameterService} from "./parameter.service";
   providedIn: 'root'
 })
 export class ApiService {
+  // todo change for local development
+  readonly BASE_URL = `http://zackathon-game.westeurope.azurecontainer.io:8080`;
+  // readonly BASE_URL = `http://localhost:4200`;
 
   constructor(private http: HttpClient, private parameterService: ParameterService) {
 
@@ -16,20 +19,18 @@ export class ApiService {
   getResult(): Observable<ResultDto> {
     let userName = this.parameterService.userName;
     let gameRoom = this.parameterService.gameRoom;
-    return this.http.get<ResultDto>(`http://localhost:4200/v1/game-room/${gameRoom}/player/${userName}/result`);
+    return this.http.get<ResultDto>(`${this.BASE_URL}/v1/game-room/${gameRoom}/player/${userName}/result`);
   }
 
   resetGameRoom(): Observable<ResultDto> {
     let userName = this.parameterService.userName;
     let gameRoom = this.parameterService.gameRoom;
-    return this.http.get<ResultDto>(`http://localhost:4200/v1/game-room/${gameRoom}/player/${userName}/reset`);
+    return this.http.get<ResultDto>(`${this.BASE_URL}/v1/game-room/${gameRoom}/player/${userName}/reset`);
   }
 
   sendCode(code: string): Observable<any> {
     let userName = this.parameterService.userName;
     let gameRoom = this.parameterService.gameRoom;
-    return this.http.post(`http://localhost:4200/v1/game-room/${gameRoom}/player/${userName}/register`, code);
-    //todo change
-    //  return this.http.post('http://localhost:4200/v1/game-room/asd/player/sd/register', code);
+    return this.http.post(`${this.BASE_URL}/v1/game-room/${gameRoom}/player/${userName}/register`, code);
   }
 }

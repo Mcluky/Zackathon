@@ -11,7 +11,7 @@ import {flatMap} from "rxjs/internal/operators";
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  display = true;
+  titleText = ""
   currentGrid?: GridDto;
 
   constructor(private apiService: ApiService) {
@@ -20,6 +20,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.apiService.getResult().subscribe(resultDto => {
       this.currentGrid = resultDto.startGrid;
+      this.titleText = this.currentGrid.name;
     })
 
     console.log("Schedule Pulling Result")
@@ -29,9 +30,19 @@ export class AppComponent implements OnInit {
   schedulePullingResult() {
     of("").pipe(delay(1000)).subscribe(() => {
       this.updateGrid().subscribe(finishedGame => {
-        if (!finishedGame){
-          this.schedulePullingResult()
-        }
+        this.apiService.getResult().subscribe(resultDto => {
+          if(finishedGame){
+            if(resultDto.winner){
+              this.titleText = `🎈 We have a Winner: ${resultDto.winner}! 🥳`;
+            }
+            this.titleText = "🔗 It's a Tie! 💀"
+          } else {
+            this.apiService.getResult().subscribe(resultDto => {
+              this.currentGrid = resultDto.startGrid;
+              this.schedulePullingResult()
+            })
+          }
+        })
       });
     })
   }
@@ -42,7 +53,10 @@ export class AppComponent implements OnInit {
         map(value => value.turns),
         flatMap(value => value),
         concatMap(item => of(item).pipe(delay(100))),
-        tap(turnGrid => this.currentGrid = turnGrid),
+        tap(turnGrid => {
+          this.titleText = turnGrid.name;
+          return this.currentGrid = turnGrid;
+        }),
         reduce((acc, val) => (val.isLastGrid || acc), false))
   }
 

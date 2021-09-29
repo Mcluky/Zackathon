@@ -4,4 +4,5 @@ export interface ResultDto {
   startGrid: GridDto;
   turns: GridDto[];
   result: object;
+  winner: string;
 }

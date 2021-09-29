@@ -29,7 +29,6 @@ export class AppComponent implements OnInit {
   schedulePullingResult() {
     of("").pipe(delay(1000)).subscribe(() => {
       this.updateGrid().subscribe(finishedGame => {
-        console.log("AHHH")
         if (!finishedGame){
           this.schedulePullingResult()
         }
@@ -38,8 +37,6 @@ export class AppComponent implements OnInit {
   }
 
   updateGrid(): Observable<any> {
-    console.log("Pull result")
-
     return this.apiService.getResult()
       .pipe(
         map(value => value.turns),

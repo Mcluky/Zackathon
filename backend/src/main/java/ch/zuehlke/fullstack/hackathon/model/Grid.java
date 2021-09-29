@@ -2,9 +2,7 @@ package ch.zuehlke.fullstack.hackathon.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static ch.zuehlke.fullstack.hackathon.model.FieldType.*;
@@ -13,15 +11,16 @@ import static java.util.Optional.ofNullable;
 public record Grid(String name, Field[][] field, Map<Player, Position> playerPositions, boolean isLastGrid) {
 
     @JsonIgnore
-    public Grid applyMove(Player player, Move move) throws InvalidArgumentException {
+    public Grid applyMove(Player player, Move move, int moveNumber) throws InvalidArgumentException {
+        String newName = "Turn " + moveNumber;
         final Position pos = getPosition(player);
         final Position newPosition = pos.getNewPosition(move);
         Field desiredField = getFieldFor(newPosition);
         if (desiredField.moveToIsPossible()) {
-            return movePlayer(player, pos, newPosition, desiredField);
+            return movePlayer(player, pos, newPosition, desiredField.isFlag(), newName);
         }
         System.out.println(player.name() + " bumped into a wall (/.-)");
-        return this;
+        return new Grid(newName, field, playerPositions, isLastGrid);
     }
 
     private Position getPosition(Player player) throws InvalidArgumentException {
@@ -36,15 +35,14 @@ public record Grid(String name, Field[][] field, Map<Player, Position> playerPos
         }
     }
 
-    private Grid movePlayer(Player player, Position pos, Position newPosition, Field desiredField) {
+    private Grid movePlayer(Player player, Position pos, Position newPosition, boolean isFinalGrid, String newName) {
         Field[][] playground = copyPlayground();
-        boolean isFinalGrid = desiredField.isFlag();
         playground[pos.x()][pos.y()] = new Field(EMPTY);
         playground[newPosition.x()][newPosition.y()] = new Field(PLAYER, player.name());
         Map<Player, Position> newPlayerPositions = new HashMap<>(Map.copyOf(this.playerPositions));
         newPlayerPositions.put(player, newPosition);
         System.out.println(player.name() + " moved to " + newPosition + " onto " + field[newPosition.x()][newPosition.y()].type().name());
-        return new Grid(name, playground, newPlayerPositions, isFinalGrid);
+        return new Grid(newName, playground, newPlayerPositions, isFinalGrid);
     }
 
     private Field[][] copyPlayground() {
